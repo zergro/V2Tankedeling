@@ -237,3 +237,4 @@ To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [
 Alternatively, you can deploy using our template by clicking on the Deploy button below.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/cms-contentful&project-name=cms-contentful&repository-name=cms-contentful&env=CONTENTFUL_SPACE_ID,CONTENTFUL_ACCESS_TOKEN,CONTENTFUL_PREVIEW_ACCESS_TOKEN,CONTENTFUL_PREVIEW_SECRET&envDescription=Required%20to%20connect%20the%20app%20with%20Contentful&envLink=https://vercel.link/cms-contentful-env)
+# V2Tankedeling

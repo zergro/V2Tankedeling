@@ -1,29 +1,37 @@
 {
-  "name": "cms-contentful",
-  "version": "1.0.0",
+  "name": "v-2-tankedeling",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "setup": "node ./contentful/setup.js $CONTENTFUL_SPACE_ID $CONTENTFUL_MANAGEMENT_TOKEN"
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
   },
+  "devDependencies": {},
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "14.1.1",
-    "classnames": "2.2.6",
-    "contentful-management": "^7.6.0",
-    "date-fns": "2.14.0",
-    "next": "latest",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-textarea-autosize": "^8.3.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3"
+    "strapi": "3.4.6",
+    "strapi-admin": "3.4.6",
+    "strapi-utils": "3.4.6",
+    "strapi-plugin-content-type-builder": "3.4.6",
+    "strapi-plugin-content-manager": "3.4.6",
+    "strapi-plugin-users-permissions": "3.4.6",
+    "strapi-plugin-email": "3.4.6",
+    "strapi-plugin-upload": "3.4.6",
+    "strapi-connector-bookshelf": "3.4.6",
+    "knex": "<0.20.0",
+    "sqlite3": "5.0.0"
   },
-  "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^2.3.0",
-    "contentful-import": "^7.8.7",
-    "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.5.1"
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "cba5797c-cd5f-4bf3-8340-8f3ef564c735"
+  },
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": ">=6.0.0"
   },
   "license": "MIT"
 }

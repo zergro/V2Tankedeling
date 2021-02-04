@@ -7,7 +7,7 @@ export default function Header() {
         <a className="hover:underline">Tankedeling</a>
       </Link>
       .
-      <Link href="createNewArticle">
+      <Link href="/newPost">
         <a className="hover:underline">Create New Article</a>
       </Link>
       .

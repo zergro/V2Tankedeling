@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "articles",
   "info": {
-    "name": "article"
+    "name": "article",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -15,6 +16,26 @@
     },
     "body": {
       "type": "richtext"
+    },
+    "user_created": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "articles"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }

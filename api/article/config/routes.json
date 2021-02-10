@@ -29,7 +29,7 @@
       "path": "/articles",
       "handler": "article.create",
       "config": {
-        "policies": []
+        "policies": ["global::is-authenticated"]
       }
     },
     {

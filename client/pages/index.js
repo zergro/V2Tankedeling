@@ -13,18 +13,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <h1>Posts</h1>
         {posts?.map((p) => (
           <div key={p.id}>
-            <p>{p.title}</p>
-            <p>{p.content}</p>
+            <img src={p.image.name} alt=""></img>
+            <h2><a href="/">{p.title}</a></h2>
+            <p>{p.body}</p>
           </div>
         ))}
       </main>

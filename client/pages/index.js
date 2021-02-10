@@ -24,7 +24,7 @@ export default function Home() {
         {posts?.map((p) => (
           <div key={p.id}>
             <p>{p.title}</p>
-            <p>{p.body}</p>
+            <p>{p.content}</p>
           </div>
         ))}
       </main>

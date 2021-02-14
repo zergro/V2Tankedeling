@@ -20,6 +20,21 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }

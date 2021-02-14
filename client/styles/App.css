@@ -1,0 +1,46 @@
+.page-title {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+.article-creator {
+  display: block !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 10px;
+}
+.hidden {
+  opacity: 0;
+}
+.ui.menu {
+  border: 0 none !important;
+  box-shadow: none;
+}
+.inline-block {
+  display: inline;
+}
+.footer {
+  background-color: gray;
+  color: white;
+}
+.title-tekst {
+  font-size: x-large !important;
+}
+.body-tekst {
+  font-size: large !important; 
+  line-height: 1.6;
+  font-family: 'Times New Roman' !important;
+}
+.form-container {
+  width: 400px;
+  margin: auto;
+}
+.tittel {
+  margin: auto 0;
+}
+
+.ui.teal.button:focus,
+.ui.teal.buttons .button:focus {
+  background-color: #00b5ad;
+}

@@ -1,70 +1,55 @@
 import getConfig from "next/config";
 import { Container } from "semantic-ui-react";
 import { useState } from "react";
-import fetch from "isomorphic-unfetch";
-import { setCookie, destroyCookie } from "nookies";
-import Router from "next/router";
+import axios from "axios";
 
-const { publicRuntimeConfig } = getConfig();
-
-function Login() {
-  const [username, setUsername] = useState("");
+function UserLogin() {
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  console.log(identifier, password);
 
-  async function handleLogin() {
-    const loginInfo = {
-      identifier: username,
-      password: password,
-    };
 
-    const login = await fetch(`${publicRuntimeConfig.API_URL}/auth/local`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginInfo),
-    });
+  const submitForm = async (e) => {
+    e.preventDefault();
 
-    const loginResponse = await login.json();
+    // TODO: Validate data
 
-    setCookie(null, "jwt", loginResponse.jwt, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-    });
-    Router.push("/create-articles");
-  }
-  function handleLogout() {
-    destroyCookie(null, "jwt");
-  }
+    try {
+      const newLogin = await axios.post(
+        "http://localhost:1337/auth/local",
+        { identifier, password },
+      );
+      console.log(newLogin);
+      console.log()
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
       <Container>
-        <h2>You need to login to access this page</h2>
+        <h2>User login</h2>
 
-        <form>
+        <form onSubmit={submitForm}>
           <input
-            type="email"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
+            type="identifier"
+            placeholder="email"
+            onChange={(e) => setIdentifier(e.target.value)}
+            value={identifier}
           />
           <br />
           <input
             type="password"
+            placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
           <br />
-          <button type="button" onClick={() => handleLogin()}>
-            Login
-          </button>
-          <button type="button" onClick={() => handleLogout()}>
-            Logout
-          </button>
+          <button type="submit">Login</button>
         </form>
       </Container>
     </>
   );
 }
-export default Login;
+export default UserLogin;

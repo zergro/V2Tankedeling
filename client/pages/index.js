@@ -1,34 +1,25 @@
-import Head from "next/head";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import styles from "../styles/Home.module.css";
+import React from "react";
+import Articles from "../components/articles";
+// import PostCard from '../components/PostCard'
+// import { Grid, Card, Image } from "semantic-ui-react";
+import { fetchAPI } from "../lib/api";
 
-export default function Home() {
-  const [posts, setPosts] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:1337/articles")
-      .then((res) => setPosts(res.data));
-  }, []);
-
+const Home = ({ articles }) => {
   return (
     <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>Posts</h1>
-        {posts?.map((p) => (
-          <div key={p.id}>
-            <img src={p.image.name} alt=""></img>
-            <h2><a href="/">{p.title}</a></h2>
-            <p>{p.body}</p>
-          </div>
-        ))}
-      </main>
+      <Articles articles={articles} />
     </div>
   );
 }
+
+export async function getStaticProps() {
+  const [ articles ] = await Promise.all([
+    fetchAPI("articles")
+  ]);
+  return {
+    props: { articles },
+    revalidate: 1,
+  };
+}
+
+export default Home;

@@ -1,12 +1,11 @@
-import getConfig from "next/config";
 import { Container } from "semantic-ui-react";
-import { parseCookies } from "nookies";
 import { useState } from "react";
 import axios from "axios";
 
-function CreateArticles({ data }) {
+function CreateArticles() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  console.log(title, body);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -15,12 +14,12 @@ function CreateArticles({ data }) {
 
     try {
       const newArticle = await axios.post(
-        "/articles",
+        "http://localhost:1337/articles",
         { title, body },
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyOTYzMzg2LCJleHAiOjE2MTU1NTUzODZ9.LTC85dSHW832basxAAUekkjLxzMr3Prlz2jc1B6cf6g",
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEzMjQzNTY1LCJleHAiOjE2MTU4MzU1NjV9.dDQm-pifoF4lucwRdGjh1BgW0sCqsjmDCzIgwNvZF70",
           },
         }
       );
@@ -39,12 +38,14 @@ function CreateArticles({ data }) {
         <form onSubmit={submitForm}>
           <input
             type="title"
+            placeholder="title"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           />
           <br />
           <input
             type="content"
+            placeholder="article body"
             onChange={(e) => setBody(e.target.value)}
             value={body}
           />
@@ -55,24 +56,5 @@ function CreateArticles({ data }) {
     </>
   );
 }
-
-// export async function getServerSideProps(ctx) {
-
-//   const jwt = parseCookies(ctx).jwt
-
-//   const res = await fetch(`${publicRuntimeConfig.API_URL}/create-articles`, {
-//     headers:  {
-//       Authorization: `Bearer ${jwt}`
-//     }
-//   })
-
-//   const data = await res.json()
-
-//   return {
-//     props: {
-//       data : data
-//     },
-//   };
-// }
 
 export default CreateArticles;

@@ -1,11 +1,12 @@
-import { Container } from "semantic-ui-react";
+import { Container, Form, Button } from "semantic-ui-react";
 import { useState } from "react";
 import axios from "axios";
+import TextareaAutosize from "react-textarea-autosize";
+
 
 function CreateArticles() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  console.log(title, body);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -32,27 +33,34 @@ function CreateArticles() {
 
   return (
     <>
-      <Container>
-        <h2>Create article</h2>
+      <div className="form-container">
+        <Form onSubmit={submitForm} noValidate>
+          <h1>Make your article here!</h1>
+          <Form.Input 
+          required={true}
+          label="Title"
+          placeholder="Title"
+          name="title"
+          type="text"
+          onChange={(e) => setTitle(e.target.value)}
+          />
+          <Form.Input 
+          required={true}
+          label="Body text"
+          placeholder="Your article.. "
+          name="body"
+          type="text"
+          control={TextareaAutosize}
+          onChange={(e) => setBody(e.target.value)}
+          />
 
-        <form onSubmit={submitForm}>
-          <input
-            type="title"
-            placeholder="title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
-          <br />
-          <input
-            type="content"
-            placeholder="article body"
-            onChange={(e) => setBody(e.target.value)}
-            value={body}
-          />
-          <br />
-          <button type="submit">Post</button>
-        </form>
-      </Container>
+        <Button 
+          type="submit"
+          primary>
+          Login
+        </Button>
+        </Form>
+      </div>
     </>
   );
 }

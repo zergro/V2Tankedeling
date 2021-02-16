@@ -1,8 +1,6 @@
 import { Button, Form, Container } from 'semantic-ui-react';
-// import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 const userSignup = () => {
@@ -12,8 +10,6 @@ const userSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
-
-  console.log(username, email, password);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -36,41 +32,35 @@ const userSignup = () => {
 
   return (
     <>
-    <Container>
-      <h2>User signup</h2>
-
-      <form onSubmit={submitForm}>
-        <input
-          type="username"
-          placeholder="username"
+      <div className="form-container">
+        <Form onSubmit={submitForm} noValidate>
+          <h1>Sign up</h1>
+          <Form.Input 
+          label="Username"
+          placeholder="Username"
+          name="username"
+          type="text"
           onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <br />
-        <input
-          type="email"
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <br />
-        <input
+          />
+          <Form.Input 
+          label="Email"
+          placeholder="Email"
+          name="identifier"
+          type="text"
+          onChange={(e) => setIdentifier(e.target.value)}
+          />
+        <Form.Input 
+          label="Password"
+          placeholder="Password"
+          name="password"
           type="password"
-          placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <br />
-        {/* <input
-          type="password"
-          placeholder="confirm you password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          value={confirmPassword}
-        />
-        <br /> */}
-        <button type="submit">Login</button>
-      </form>
-    </Container>
+          />
+        <Button type="submit" primary>
+          Login
+        </Button>
+        </Form>
+      </div>
   </>
   );
 }

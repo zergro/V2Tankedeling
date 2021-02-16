@@ -18,13 +18,18 @@ function NavBar(){
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/login">
-              <a>Login</a>
+            <Link href="/signin">
+              <a>Sign in</a>
             </Link>
           </Menu.Item>
           <Menu.Item>
             <Link href="/signup">
-              <a>Signup</a>
+              <a>Sign up</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link href="/test">
+              <a>Test</a>
             </Link>
           </Menu.Item>
         </Menu.Menu>

@@ -11,7 +11,7 @@ function PostCard({
       <Card.Content>
           <Card.Header>{title}</Card.Header>
           <Card.Description>{body}</Card.Description>
-          <Link href={`/posts/${slug}`}>
+            <Link href={`/posts/${slug}`}>
             <a>Read more</a>
           </Link>
       </Card.Content>

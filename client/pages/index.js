@@ -27,11 +27,11 @@ export default function Home() {
             <h1>Posts</h1>
           </Grid.Row>
           <Grid.Row>
-              {posts?.map((p) => (
-                <Grid.Column key={p.id} style={{ marginBottom: 20 }}>
-                  <PostCard post={p} />
-                </Grid.Column>
-              ))}
+            {posts?.map((p) => (
+              <Grid.Column key={p.id} style={{ marginBottom: 20 }}>
+                <PostCard post={p} />
+              </Grid.Column>
+            ))}
           </Grid.Row>
         </Grid>
       </Container>

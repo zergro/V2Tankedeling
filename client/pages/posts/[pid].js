@@ -16,16 +16,16 @@ const Post = () => {
       .then((res) => setPosts(res.data));
   }, []);
   return (
-    <>        
-    <Container text>
-      {posts?.map((p) => (
-        <div key={p.id}>
-          <img src={p.image.name} style={{ maxWidth:900 }} />
-          <Header as="h2">{p.title}</Header>
-          <p>{p.body}</p>
-        </div>
-      ))}
-    </Container>
+    <>
+      <Container text>
+        {posts?.map((p) => (
+          <div key={p.id}>
+            <img src={p.image.name} style={{ maxWidth: 900 }} />
+            <Header as="h2">{p.title}</Header>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </Container>
     </>
   );
 };

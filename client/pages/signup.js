@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Form, Input } from 'semantic-ui-react-form-validator';
+import { Form, Input } from "semantic-ui-react-form-validator";
 import { Button } from "semantic-ui-react";
 import axios from "axios";
 
@@ -39,8 +39,8 @@ const userSignup = () => {
             placeholder="Username"
             name="username"
             type="text"
-            validators={['required']} 
-            errorMessages={['This field is required']} 
+            validators={["required"]}
+            errorMessages={["This field is required"]}
             onChange={(e) => setUsername(e.target.value)}
           />
           <Input
@@ -48,8 +48,8 @@ const userSignup = () => {
             placeholder="Email"
             name="identifier"
             type="text"
-            validators={['required']} 
-            errorMessages={['This field is required']} 
+            validators={["required"]}
+            errorMessages={["This field is required"]}
             onChange={(e) => setIdentifier(e.target.value)}
           />
           <Input
@@ -57,8 +57,8 @@ const userSignup = () => {
             placeholder="Password"
             name="password"
             type="password"
-            validators={['required']} 
-            errorMessages={['This field is required']} 
+            validators={["required"]}
+            errorMessages={["This field is required"]}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit" primary>

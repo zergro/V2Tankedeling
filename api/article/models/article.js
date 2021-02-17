@@ -1,8 +1,8 @@
 "use strict";
 
 function slugify(text) {
-  const a = "àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;";
-  const b = "aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------";
+  const a = "àáäâèéëêìíïîòóöôùúüûñçßÿœæøåŕśńṕẃǵǹḿǘẍźḧ·/_,:;";
+  const b = "aaaaeeeeiiiioooouuuuncsyoaoarsnpwgnmuxzh------";
   const p = new RegExp(a.split("").join("|"), "g");
 
   return text

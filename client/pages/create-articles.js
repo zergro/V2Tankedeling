@@ -14,13 +14,21 @@ function CreateArticles() {
     // TODO: Validate data
 
     try {
+      const formData = new FormData();
+      formData.append("data", JSON.stringify({ title, body }));
+      formData.append(
+        "files.avatar",
+        document.getElementById("avatar").files[0]
+      );
+      const jwt = localStorage.getItem("jwt");
+
       const newArticle = await axios.post(
         "http://localhost:1337/articles",
-        { title, body, image },
+        formData,
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEzNTQ4NDI2LCJleHAiOjE2MTYxNDA0MjZ9.WbmDLMk_pe1p6lSBc3j7c8CftcKNinpsqOg7mDHp1-0",
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -49,8 +57,8 @@ function CreateArticles() {
             label="Image"
             placeholder="Image"
             name="image"
-            type="text"
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            id="avatar"
           />
           <Form.Input
             required={true}

@@ -12,7 +12,6 @@ module.exports = {
     let entity;
     const { title, body } = ctx.request.body;
     console.log(ctx.request.body);
-    console.log(ctx.state.user);
     let errors = {};
     if (title === "") {
       errors.title = "Title must not be empty";
@@ -26,12 +25,16 @@ module.exports = {
       return;
     }
     if (ctx.is("multipart")) {
-      const { data, files } = parseMultipartData(ctx);
-      entity = await strapi.services.article.create(data, { files });
+      const { data, files } = parseMultipartData(ctx)
+      console.log(files)
+      entity = await strapi.services.article.create({
+        ...data,
+        image: `/uploads/${files.avatar.name}`
+      }, { files });
     } else {
       entity = await strapi.services.article.create({
         ...ctx.request.body,
-        user: ctx.state.user.id,
+        user: ctx.state.user.id
       });
     }
     return sanitizeEntity(entity, { model: strapi.models.article });

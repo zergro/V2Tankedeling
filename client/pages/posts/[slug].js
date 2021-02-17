@@ -5,26 +5,29 @@ import axios from "axios";
 
 const Post = () => {
   const router = useRouter();
-  const { pid } = router.query;
+  const { slug } = router.query;
 
-  const [posts, setPosts] = useState(null);
-  console.log(posts);
+  console.log(slug)
+
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
+    if(!slug) return
     axios
-      .get("http://localhost:1337/articles?slug=" + `${pid}`) // Could it be added if {pid} is not found, use slug from the post?
-      .then((res) => setPosts(res.data));
-  }, []);
+      .get(`http://localhost:1337/articles/${slug}`) // Could it be added if {slug} is not found, use slug from the post?
+      .then((res) => setPost(res.data));
+  }, [slug]);
+
   return (
     <>
       <Container text>
-        {posts?.map((p) => (
-          <div key={p.id}>
-            <img src={p.image.name} style={{ maxWidth: 900 }} />
-            <Header as="h2">{p.title}</Header>
-            <p>{p.body}</p>
+        {post && (
+          <div>
+            <img src={post.image.name} style={{ maxWidth: 900 }} />
+            <Header as="h2">{post.title}</Header>
+            <p>{post.body}</p>
           </div>
-        ))}
+        )}
       </Container>
     </>
   );

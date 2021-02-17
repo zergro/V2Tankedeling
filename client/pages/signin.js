@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Form, Input } from "semantic-ui-react-form-validator";
 import { Button } from "semantic-ui-react";
 import axios from "axios";
+import { useRouter } from 'next/router'
 
 function UserSignIn() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   console.log(identifier, password);
+
+  const router = useRouter()
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -14,12 +17,16 @@ function UserSignIn() {
     //TODO: validate data
 
     try {
-      const newLogin = await axios.post("http://localhost:1337/auth/local", {
+      const res = await axios.post("http://localhost:1337/auth/local", {
         identifier,
         password,
       });
-      console.log(newLogin);
-      console.log();
+      
+      // Set token in local storage
+      localStorage.setItem('jwt', res.data.jwt)
+
+      // redicrect back
+      router.back()
     } catch (err) {
       console.log(err);
     }

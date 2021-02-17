@@ -1,10 +1,9 @@
 import Head from "next/head";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from 'next/link'
 
-import PostCard from '../components/PostCard'
-import { Grid, Card, Image } from "semantic-ui-react";
+import PostCard from "../components/PostCard";
+import { Container, Grid, GridColumn, Transition } from "semantic-ui-react";
 
 export default function Home() {
   const [posts, setPosts] = useState(null);
@@ -22,14 +21,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Posts</h1>
-        {posts?.map((p) => (
-          <Grid.Column key={p.id} style={{ marginBottom: 20 }}>
-            <PostCard post={p} />
-          </Grid.Column>
-        ))}
-      </main>
+      <Container>
+        <Grid columns={3}>
+          <Grid.Row>
+            <h1>Posts</h1>
+          </Grid.Row>
+          <Grid.Row>
+              {posts?.map((p) => (
+                <Grid.Column key={p.id} style={{ marginBottom: 20 }}>
+                  <PostCard post={p} />
+                </Grid.Column>
+              ))}
+          </Grid.Row>
+        </Grid>
+      </Container>
     </div>
   );
 }

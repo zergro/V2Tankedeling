@@ -15,10 +15,10 @@ module.exports = {
     console.log(ctx.state.user);
     let errors = {};
     if (title === "") {
-      errors.title = "Title must not be empty"
-    } 
-    if (body === ""){
-      errors.body = "Body must not be empty"
+      errors.title = "Title must not be empty";
+    }
+    if (body === "") {
+      errors.body = "Body must not be empty";
     }
     if (Object.keys(errors).length > 0) {
       ctx.response.status = 400;

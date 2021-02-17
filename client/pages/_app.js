@@ -1,7 +1,7 @@
 // import "tailwindcss/tailwind.css";
 // import '../styles/globals.css'
-import '../styles/app.css';
-import 'semantic-ui-css/semantic.min.css'
+import "../styles/app.css";
+import "semantic-ui-css/semantic.min.css";
 
 // import Router from "next/router";
 import NavBar from "../components/NavBar";

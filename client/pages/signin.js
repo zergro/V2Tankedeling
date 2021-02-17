@@ -1,8 +1,7 @@
-import { Container, Form , Button} from "semantic-ui-react";
 import { useState } from "react";
+import { Form, Input } from 'semantic-ui-react-form-validator';
+import { Button} from "semantic-ui-react";
 import axios from "axios";
-
-// import '../styles/FormValidation'
 
 function UserSignIn() {
   const [identifier, setIdentifier] = useState("");
@@ -30,22 +29,26 @@ function UserSignIn() {
   return (
     <>
       <div className="form-container">
-        <Form onSubmit={submitForm} noValidate>
+        <Form onSubmit={submitForm}>
           <h1>Sign in</h1>
-          <Form.Input 
-          required={true}
+          <Input 
           label="Email"
           placeholder="Email"
           name="identifier"
           type="text"
+          value={identifier} 
+          validators={['required']} 
+          errorMessages={['This field is required']} 
           onChange={(e) => setIdentifier(e.target.value)}
           />
-        <Form.Input 
-          required={true}
+        <Input 
           label="Password"
           placeholder="Password"
           name="password"
           type="password"
+          value={password} 
+          validators={['required']} 
+          errorMessages={['This field is required']} 
           onChange={(e) => setPassword(e.target.value)}
           />
         <Button type="submit" primary>

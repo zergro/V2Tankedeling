@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Input } from "semantic-ui-react-form-validator";
+import { Form, Input } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
 import axios from "axios";
 import { useRouter } from 'next/router'
@@ -7,14 +7,29 @@ import { useRouter } from 'next/router'
 function UserSignIn() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({})
   console.log(identifier, password);
 
   const router = useRouter()
 
   const submitForm = async (e) => {
     e.preventDefault();
+    const regEx = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    let tempErrors = {}
 
     //TODO: validate data
+    if(identifier === ''){
+      tempErrors.identifier = 'Mmust not be empty'
+    } else if(!identifier.match(regEx)){
+      tempErrors.identifier = 'Must be a valid email address'
+    }
+    if(password === ''){
+      tempErrors.password = 'Password must not be empty'
+    }
+
+    setErrors(tempErrors)
+    if(Object.keys(tempErrors).length > 0) return
 
     try {
       const res = await axios.post("http://localhost:1337/auth/local", {
@@ -35,26 +50,34 @@ function UserSignIn() {
   return (
     <>
       <div className="form-container">
-        <Form onSubmit={submitForm}>
+        <Form onSubmit={submitForm} noValidate>
           <h1>Sign in</h1>
-          <Input
+          <Form.Input
             label="Email"
             placeholder="Email"
             name="identifier"
-            type="text"
+            type="email"
             value={identifier}
-            validators={["required"]}
-            errorMessages={["This field is required"]}
             onChange={(e) => setIdentifier(e.target.value)}
+            error={errors?.identifier}
           />
-          <Input
+           {/* <Form.Field
+      id='form-input-control-error-email'
+      control={Input}
+      label='Email'
+      placeholder='joe@schmoe.com'
+      error={{
+        content: 'Please enter a valid email address',
+        pointing: 'below',
+      }}
+    /> */}
+          <Form.Input
             label="Password"
             placeholder="Password"
             name="password"
             type="password"
             value={password}
-            validators={["required"]}
-            errorMessages={["This field is required"]}
+            error={errors?.password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit" primary>

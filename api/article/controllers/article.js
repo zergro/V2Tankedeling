@@ -1,6 +1,7 @@
-"use strict";
+'use strict';
 
-const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
+const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
+const isEmpty = require('../../../utils/is-empty');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
@@ -11,30 +12,34 @@ module.exports = {
   async create(ctx) {
     let entity;
     const { title, body } = ctx.request.body;
-    console.log(ctx.request.body);
+
+    // Validate request body
     let errors = {};
-    if (title === "") {
-      errors.title = "Title must not be empty";
-    }
-    if (body === "") {
-      errors.body = "Body must not be empty";
-    }
+    if (isEmpty(title)) errors.title = 'Title must not be empty';
+    if (isEmpty(body)) errors.body = 'Body must not be empty';
+
+    // Check for errors and return if any
     if (Object.keys(errors).length > 0) {
       ctx.response.status = 400;
       ctx.response.body = errors;
       return;
     }
-    if (ctx.is("multipart")) {
-      const { data, files } = parseMultipartData(ctx)
-      console.log(files)
-      entity = await strapi.services.article.create({
-        ...data,
-        image: `/uploads/${files.avatar.name}`
-      }, { files });
+
+    if (ctx.is('multipart')) {
+      // If is multipart request upload files
+      ctx.request.body.data = JSON.stringify({ title, body });
+      const { data, files } = parseMultipartData(ctx);
+      entity = await strapi.services.article.create(
+        {
+          ...data,
+          user: ctx.state.user.id,
+        },
+        { files }
+      );
     } else {
       entity = await strapi.services.article.create({
         ...ctx.request.body,
-        user: ctx.state.user.id
+        user: ctx.state.user.id,
       });
     }
     return sanitizeEntity(entity, { model: strapi.models.article });

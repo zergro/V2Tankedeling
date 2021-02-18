@@ -1,11 +1,16 @@
-import { Card, Image } from "semantic-ui-react";
-import Link from "next/link";
+import { Card, Image } from 'semantic-ui-react';
+import Link from 'next/link';
 
 function PostCard({ post: { title, body, image, slug } }) {
   return (
     <>
       <Card fluid style={{ marginBottom: 20, width: 300 }}>
-        <Image src={image.name} alt="" />
+        {image && (
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}${image?.url}`}
+            alt=""
+          />
+        )}
         <Card.Content>
           <Card.Header>{title}</Card.Header>
           <Card.Description>{body}</Card.Description>

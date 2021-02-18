@@ -1,12 +1,15 @@
-import { Container, Form, Button } from "semantic-ui-react";
-import { useState } from "react";
-import axios from "axios";
-import TextareaAutosize from "react-textarea-autosize";
+import { Form, Button } from 'semantic-ui-react';
+import { useState } from 'react';
+import axios from 'axios';
+import TextareaAutosize from 'react-textarea-autosize';
+import { useRouter } from 'next/router';
 
 function CreateArticles() {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [image, setImage] = useState("");
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [image, setImage] = useState('');
+
+  const router = useRouter();
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -15,25 +18,22 @@ function CreateArticles() {
 
     try {
       const formData = new FormData();
-      formData.append("data", JSON.stringify({ title, body }));
+      formData.append('title', title);
+      formData.append('body', body);
       formData.append(
-        "files.avatar",
-        document.getElementById("avatar").files[0]
+        'files.image',
+        document.getElementById('imageInput').files[0]
       );
-      const jwt = localStorage.getItem("jwt");
+      const jwt = localStorage.getItem('jwt');
 
-      const newArticle = await axios.post(
-        "http://localhost:1337/articles",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axios.post('http://localhost:1337/articles', formData, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-      console.log(newArticle);
+      router.push(`/posts/${res.data.slug}`);
     } catch (err) {
       console.log(err);
     }
@@ -58,7 +58,7 @@ function CreateArticles() {
             placeholder="Image"
             name="image"
             type="file"
-            id="avatar"
+            id="imageInput"
           />
           <Form.Input
             required={true}
@@ -71,7 +71,7 @@ function CreateArticles() {
           />
 
           <Button type="submit" primary>
-            Login
+            Create
           </Button>
         </Form>
       </div>

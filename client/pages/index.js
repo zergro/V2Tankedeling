@@ -11,7 +11,9 @@ export default function Home() {
   useEffect(() => {
     axios
       .get("http://localhost:1337/articles")
-      .then((res) => setPosts(res.data));
+      .then((res) => setPosts(res.data))
+      .then(console.log('We are sending a request'));
+
   }, []);
 
   return (

@@ -31,7 +31,9 @@ function CreateArticles() {
           Authorization: `Bearer ${jwt}`,
           'Content-Type': 'multipart/form-data',
         },
-      });
+      }
+      ).then(console.log('We are sending a request'));
+
 
       router.push(`/posts/${res.data.slug}`);
     } catch (err) {
@@ -42,7 +44,7 @@ function CreateArticles() {
   return (
     <>
       <div className="form-container">
-        <Form onSubmit={submitForm}>
+        <Form onSubmit={submitForm} noValidate>
           <h1>Make your article here!</h1>
           <Form.Input
             required={true}

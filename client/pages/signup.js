@@ -1,27 +1,46 @@
-import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Form, Input } from "semantic-ui-react-form-validator";
-import { Button } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import axios from "axios";
 
 const userSignup = () => {
-  const { register, handleSubmit, errors } = useForm();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({})
+
 
   const submitForm = async (e) => {
     e.preventDefault();
+    const regEx = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    // TODO: Validate data
+    let tempErrors = {}
+
+    if (username === '') {
+      tempErrors.username = 'must not be empty'
+    }
+    if (email === '') {
+      tempErrors.email = 'must not be empty'
+    } else if (!email.match(regEx)) {
+      tempErrors.email = 'Must be a valid email address'
+    }
+    if (password === '') {
+      tempErrors.password = 'must not be empty'
+    }
+    if (confirmPassword === '') {
+      tempErrors.confirmPassword = 'must not be empty'
+    } else if (confirmPassword !== password) {
+      tempErrors.confirmPassword = 'Does not match password'
+    }
+
+    setErrors(tempErrors)
+    if(Object.keys(tempErrors).length > 0) return
 
     try {
       const newUser = await axios.post(
         "http://localhost:1337/auth/local/register",
         { username, email, password }
-      );
+      ).then(console.log('We are sending a request'));
 
       console.log(newUser);
     } catch (err) {
@@ -32,37 +51,46 @@ const userSignup = () => {
   return (
     <>
       <div className="form-container">
-        <Form onSubmit={submitForm}>
+        <Form onSubmit={submitForm} noValidate>
           <h1>Sign up</h1>
-          <Input
+          <Form.Input
             label="Username"
             placeholder="Username"
             name="username"
             type="text"
-            validators={["required"]}
-            errorMessages={["This field is required"]}
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
+            error={errors?.username}
           />
-          <Input
+          <Form.Input
             label="Email"
             placeholder="Email"
-            name="identifier"
-            type="text"
-            validators={["required"]}
-            errorMessages={["This field is required"]}
-            onChange={(e) => setIdentifier(e.target.value)}
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={errors?.email}
           />
-          <Input
+          <Form.Input
             label="Password"
             placeholder="Password"
             name="password"
             type="password"
-            validators={["required"]}
-            errorMessages={["This field is required"]}
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={errors?.password}
+          />
+          <Form.Input
+            label="Confirm password"
+            placeholder="Confirm password"
+            name="confirmPassword"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            error={errors?.confirmPassword}
           />
           <Button type="submit" primary>
-            Login
+            Create your user
           </Button>
         </Form>
       </div>

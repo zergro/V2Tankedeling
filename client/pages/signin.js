@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Input } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
 import axios from "axios";
 import { useRouter } from 'next/router'
@@ -8,7 +8,6 @@ function UserSignIn() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({})
-  console.log(identifier, password);
 
   const router = useRouter()
 
@@ -18,9 +17,8 @@ function UserSignIn() {
 
     let tempErrors = {}
 
-    //TODO: validate data
     if(identifier === ''){
-      tempErrors.identifier = 'Mmust not be empty'
+      tempErrors.identifier = 'must not be empty'
     } else if(!identifier.match(regEx)){
       tempErrors.identifier = 'Must be a valid email address'
     }
@@ -35,7 +33,7 @@ function UserSignIn() {
       const res = await axios.post("http://localhost:1337/auth/local", {
         identifier,
         password,
-      });
+      }).then(console.log('We are sending a request'));
       
       // Set token in local storage
       localStorage.setItem('jwt', res.data.jwt)
@@ -61,16 +59,6 @@ function UserSignIn() {
             onChange={(e) => setIdentifier(e.target.value)}
             error={errors?.identifier}
           />
-           {/* <Form.Field
-      id='form-input-control-error-email'
-      control={Input}
-      label='Email'
-      placeholder='joe@schmoe.com'
-      error={{
-        content: 'Please enter a valid email address',
-        pointing: 'below',
-      }}
-    /> */}
           <Form.Input
             label="Password"
             placeholder="Password"

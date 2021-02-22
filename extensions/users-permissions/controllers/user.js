@@ -9,10 +9,14 @@ const sanitizeUser = (user) =>
 module.exports = {
   async findOne(ctx) {
     // TODO: Get username and search by that instead of id
+    console.log(ctx);
     const { id } = ctx.params;
+    console.log(ctx.params);
     let data = await strapi.plugins['users-permissions'].services.user.fetch({
       id,
     });
+    console.log(data);
+    console.log(data.username);
 
     // TODO: Remove fields like email, password...etc
     if (data) {

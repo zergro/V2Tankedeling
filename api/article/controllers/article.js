@@ -45,9 +45,9 @@ module.exports = {
     return sanitizeEntity(entity, { model: strapi.models.article });
   },
   async findOne(ctx) {
-    const { id } = ctx.params;
+    const { id } = ctx.params; // here it was { id }
 
-    const entity = await strapi.services.article.findOne({ slug: id });
+    const entity = await strapi.services.article.findOne({ slug: id }); // here it was { slug: id }
     return sanitizeEntity(entity, { model: strapi.models.article });
   },
 };

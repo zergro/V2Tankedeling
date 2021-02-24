@@ -9,23 +9,19 @@ const sanitizeUser = (user) =>
 module.exports = {
   async findOne(ctx) {
     // TODO: Get username and search by that instead of id
-    console.log(ctx);
-    const { id } = ctx.params;
-    console.log(ctx.params);
-    let data = await strapi.plugins['users-permissions'].services.user.fetch({
-      id,
+    const { username } = ctx.params;
+    let user = await strapi.plugins['users-permissions'].services.user.fetch({
+      username,
     });
-    console.log(data);
-    console.log(data.username);
 
     // TODO: Remove fields like email, password...etc
-    if (data) {
-      data = sanitizeUser(data);
+    if (user) {
+      user = sanitizeUser(user);
     }
 
-    // Find articles posted by this user
-    const articles = await strapi.services.article.find({ user: id });
+    // // Find articles posted by this user
+    const articles = await strapi.services.article.find({ user: user.id });
 
-    ctx.body = { ...data, articles };
+    ctx.body = { ...user, articles };
   },
 };

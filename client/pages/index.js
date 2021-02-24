@@ -17,26 +17,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <Head>
-        <title>Tankedeling</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Container>
-        <Grid columns={3}>
-          <Grid.Row>
-            <h1>Posts</h1>
-          </Grid.Row>
-          <Grid.Row>
-            {posts?.map((p) => (
-              <Grid.Column key={p.id} style={{ marginBottom: 20 }}>
-                <PostCard post={p} />
-              </Grid.Column>
-            ))}
-          </Grid.Row>
-        </Grid>
-      </Container>
+    <div className="container">
+      <div className="grid-cols-3 gap-4">
+        <div className="grid-rows-1">
+          {posts?.map((p) => (
+            <div key={p.id}>
+              <PostCard post={p} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

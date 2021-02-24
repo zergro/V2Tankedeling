@@ -1,26 +1,21 @@
-import { Card, Image } from 'semantic-ui-react';
 import Link from 'next/link';
-import userSignup from '../pages/signup';
 
 function PostCard({ post: { title, body, image, slug, } }) {
   return (
     <>
-      <Card fluid style={{ marginBottom: 20, width: 300 }}>
-        {image && (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}${image?.url}`}
-            alt=""
-          />
-        )}
-        <Card.Content>
-          {/* <Card.Description>Author: {user.username}</Card.Description> */}
-          <Card.Header>{title}</Card.Header>
-          <Card.Description>{body}</Card.Description>
+
+      <div className="max-w-xs rounded overflow-hidden shadow-lg my-2">
+        <img className="w-full" src={`${process.env.NEXT_PUBLIC_API_URL}${image?.url}`} alt="Sunset in the mountains" />
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">{title}</div>
+          <p className="text-grey-darker text-base">
+            {body}
+          </p>
           <Link href={`/posts/${slug}`}>
             <a>Read more</a>
           </Link>
-        </Card.Content>
-      </Card>
+        </div>
+      </div>
     </>
   );
 }

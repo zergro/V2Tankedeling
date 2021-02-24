@@ -50,49 +50,84 @@ const userSignup = () => {
 
   return (
     <>
-      <div className="form-container">
-        <Form onSubmit={submitForm} noValidate>
-          <h1>Sign up</h1>
-          <Form.Input
-            label="Username"
-            placeholder="Username"
-            name="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            error={errors?.username}
-          />
-          <Form.Input
-            label="Email"
-            placeholder="Email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={errors?.email}
-          />
-          <Form.Input
-            label="Password"
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={errors?.password}
-          />
-          <Form.Input
-            label="Confirm password"
-            placeholder="Confirm password"
-            name="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            error={errors?.confirmPassword}
-          />
-          <Button type="submit" primary>
-            Create your user
-          </Button>
-        </Form>
+      <div className=" flex items-center justify-center">
+        <form
+          id="form"
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          onSubmit={submitForm}
+        >
+          <br />
+          <h1 className="block text-gray-700 font-bold mb-2 text-xl text-center">
+            Login
+          </h1>
+          <br />
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Username"
+              name="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              error={errors?.username}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Email"
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={errors?.email}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={password}
+              error={errors?.password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={confirmPassword}
+              error={errors?.confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <button
+              id="submit"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Create article
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );

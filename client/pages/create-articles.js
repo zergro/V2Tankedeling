@@ -43,40 +43,46 @@ function CreateArticles() {
 
   return (
     <>
-      <div className="form-container">
-        <Form onSubmit={submitForm} noValidate>
-          <h1>Make your article here!</h1>
-          <Form.Input
-            required={true}
-            label="Title"
-            placeholder="Title"
-            name="title"
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Form.Input
-            required={true}
-            label="Image"
-            placeholder="Image"
-            name="image"
-            type="file"
-            id="imageInput"
-          />
-          <Form.Input
-            required={true}
-            label="Body text"
-            placeholder="Your article.. "
-            name="body"
-            type="text"
-            control={TextareaAutosize}
-            onChange={(e) => setBody(e.target.value)}
-          />
+      <div className=" flex items-center justify-center">
+        <form id="form" className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submitForm}>
+            <br />
+            <h1 className="block text-gray-700 font-bold mb-2 text-xl text-center">Create an article</h1>
+            <br />
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Title
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="name" id="name" type="text" placeholder="Write a title" onChange={(e) => setTitle(e.target.value)}/>
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Add a photo
+                </label>
+                <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="image" id="imageInput" type="file" placeholder="Write a title"/>
+            </div>
+          
+            <div className="mb-4">
 
-          <Button type="submit" primary>
-            Create
-          </Button>
-        </Form>
-      </div>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Article body
+                </label>
+                <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="message1" id="message1" type="text" placeholder="Write your text here.." required onChange={(e) => setBody(e.target.value)}></textarea>
+            </div>
+
+            
+            <div className="flex items-center justify-between">
+                <button id="submit"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Create article
+                </button>
+            </div>
+        </form>
+    </div>
     </>
   );
 }

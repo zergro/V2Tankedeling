@@ -1,19 +1,20 @@
-import Head from "next/head";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import Head from 'next/head';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-import PostCard from "../components/PostCard";
-import { Container, Grid, GridColumn, Transition } from "semantic-ui-react";
+import PostCard from '../components/PostCard';
+import { Container, Grid, GridColumn, Transition } from 'semantic-ui-react';
 
 export default function Home() {
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:1337/articles")
+      .get('http://localhost:1337/articles', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+      })
       .then((res) => setPosts(res.data))
       .then(console.log('We are sending a request'));
-
   }, []);
 
   return (

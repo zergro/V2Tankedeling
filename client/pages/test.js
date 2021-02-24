@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
@@ -46,10 +46,20 @@ const formats = [
   'video',
 ];
 
-const Createtest = () => (
-  <div style="width:200">
-    <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" />
-  </div>
-);
+const Createtest = () => {
+  const [value, setValue] = useState('');
+
+  return (
+    <div className="container pt-8 mx-auto">
+      <QuillNoSSRWrapper
+        modules={modules}
+        formats={formats}
+        value={value}
+        onChange={setValue}
+        theme="snow"
+      />
+    </div>
+  );
+};
 
 export default Createtest;

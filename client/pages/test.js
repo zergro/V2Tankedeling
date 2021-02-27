@@ -46,8 +46,16 @@ const formats = [
   'video',
 ];
 
+<<<<<<< Updated upstream
 const Createtest = () => {
   const [value, setValue] = useState('');
+=======
+const Createtest = () => (
+  <div className="container pt-8 mx-auto"style={{  width: 2000 }}>
+    <QuillNoSSRWrapper modules={modules} formats={formats} theme="snow" />
+  </div>
+);
+>>>>>>> Stashed changes
 
   return (
     <div className="container pt-8 mx-auto">

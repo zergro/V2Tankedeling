@@ -1,136 +1,149 @@
-import { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
-import axios from "axios";
+import React, { useRef } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 
-const userSignup = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({})
+function UserSignUp() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { register, handleSubmit, errors, watch } = useForm();
 
+  const router = useRouter();
 
-  const submitForm = async (e) => {
-    e.preventDefault();
-    const regEx = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const checkPassword = useRef({});
+  checkPassword.current = watch('password', '');
 
-    let tempErrors = {}
-
-    if (username === '') {
-      tempErrors.username = 'must not be empty'
-    }
-    if (email === '') {
-      tempErrors.email = 'must not be empty'
-    } else if (!email.match(regEx)) {
-      tempErrors.email = 'Must be a valid email address'
-    }
-    if (password === '') {
-      tempErrors.password = 'must not be empty'
-    }
-    if (confirmPassword === '') {
-      tempErrors.confirmPassword = 'must not be empty'
-    } else if (confirmPassword !== password) {
-      tempErrors.confirmPassword = 'Does not match password'
-    }
-
-    setErrors(tempErrors)
-    if(Object.keys(tempErrors).length > 0) return
+  const onSubmit = handleSubmit(async (e) => {
+    console.log(e);
 
     try {
-      const newUser = await axios.post(
-        "http://localhost:1337/auth/local/register",
-        { username, email, password }
-      ).then(console.log('We are sending a request'));
+      const newUser = await axios
+        .post('http://localhost:1337/auth/local/register', {
+          username,
+          email,
+          password,
+        })
+        .then(console.log('We are sending a request'));
 
-      console.log(newUser);
+      router.back();
     } catch (err) {
       console.log(err);
     }
-  };
+  });
 
   return (
-    <>
-      <div className=" flex items-center justify-center">
-        <form
-          id="form"
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={submitForm}
-        >
-          <br />
-          <h1 className="block text-gray-700 font-bold mb-2 text-xl text-center">
-            Login
-          </h1>
-          <br />
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Username
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center">
+      <div className="max-w-md w-full mx-auto">
+        <div className="text-center font-medium text-xl">Tankedeling</div>
+        <div className="text-3xl font-bold text-gray-900 mt-2 text-center">
+          Register your new user
+        </div>
+      </div>
+      <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300">
+        <form action="" className="space-y-6" onSubmit={onSubmit}>
+          <div>
+            <label className="text-sm font-bold text-gray-600 block">
+              Email
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Username"
-              name="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              error={errors?.username}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Username
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Email"
+              ref={register({
+                required: true,
+              })}
+              style={{ borderColor: errors.email ? 'red' : '' }}
               name="email"
               type="email"
-              value={email}
               onChange={(e) => setEmail(e.target.value)}
-              error={errors?.email}
+              className="w-full p-2 border border-gray-300 rounded mt-1"
             />
+            {errors.email && 'Email is invalid'}
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+          <div>
+            <label className="text-sm font-bold text-gray-600 block">
+              Username
+            </label>
+            <input
+              ref={register({
+                required: true,
+              })}
+              style={{ borderColor: errors.username ? 'red' : '' }}
+              name="username"
+              type="username"
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mt-1"
+            />
+            {errors.email && 'Username is invalid'}
+          </div>
+          <div>
+            <label className="text-sm font-bold text-gray-600 block">
               Password
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Password"
+              ref={register({
+                required: true,
+              })}
+              style={{ borderColor: errors.password ? 'red' : '' }}
               name="password"
               type="password"
-              value={password}
-              error={errors?.password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mt-1"
             />
+            {errors.password && 'Password is invalid'}
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Password
+          <div>
+            <label className="text-sm font-bold text-gray-600 block">
+              Confirm password
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Password"
-              name="password"
+              ref={register({
+                required: true,
+                validate: (value) => value === watch('password'),
+              })}
+              style={{ borderColor: errors.checkPassword ? 'red' : '' }}
+              name="checkPassword"
               type="password"
-              value={confirmPassword}
-              error={errors?.confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mt-1"
             />
+            {errors.checkPassword && 'Your password does not match'}
           </div>
-
-          <div className="flex items-center justify-between">
-            <button
-              id="submit"
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
+          <div>
+            <label className="text-sm font-bold text-gray-600 block">
+              Source
+            </label>
+            <select
+              name=""
+              id=""
+              className="w-full p-2 border border-gray-300 rounded mt-1"
             >
-              Create article
+              <option value="Youtube">Youtube</option>
+              <option value="Website">Website</option>
+            </select>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="h-4 w-4 text-blue-300 rounded"
+              />
+              <label className="ml-2 text-sm text-gray-600">
+                Terms of policy..
+              </label>
+            </div>
+            <div>
+              <a href="" className="font-medium text-sm text-blue-500">
+                Already have a user?
+              </a>
+            </div>
+          </div>
+          <div>
+            <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm">
+              Submit
             </button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
-};
-
-export default userSignup;
+}
+export default UserSignUp;

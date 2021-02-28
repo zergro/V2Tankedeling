@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 
 function UserSignIn() {
   const [identifier, setEmail] = useState('');
@@ -34,10 +35,9 @@ function UserSignIn() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center">
+    <div className="flex flex-col justify-center">
       <div className="max-w-md w-full mx-auto">
-        <div className="text-center font-medium text-xl">Tankedeling</div>
-        <div className="text-3xl font-bold text-gray-900 mt-2 text-center">
+        <div className="text-3xl font-bold text-gray-900 mt-16 text-center">
           Login
         </div>
       </div>
@@ -87,6 +87,11 @@ function UserSignIn() {
               <a href="" className="font-medium text-sm text-blue-500">
                 Forgot Password?
               </a>
+            </div>
+            <div>
+              <Link href="/signup">
+                <a className="font-medium text-sm text-blue-500">New user?</a>
+              </Link>
             </div>
           </div>
           <div>

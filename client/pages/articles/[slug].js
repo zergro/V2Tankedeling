@@ -36,7 +36,9 @@ const Post = () => {
                       alt=""
                     />
                     <div className="pl-4">
-                      <p className="text-blueGray-500 mb-1">Alice Bradley</p>
+                      <p className="text-blueGray-500 mb-1">
+                        {post.author.username}
+                      </p>
                       <p className="text-xs text-blue-600 font-semibold">
                         Author
                       </p>
@@ -44,7 +46,7 @@ const Post = () => {
                   </div>
                   <div className="w-1/3 text-center">
                     <p className="text-blueGray-500 mb-1">
-                      16. Feb &#8226; Category
+                      16. Feb &#8226; {post.category.CategoryName}
                     </p>
                     <p className="text-xs text-blue-600 font-semibold">
                       6 min read

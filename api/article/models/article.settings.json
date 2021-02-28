@@ -17,10 +17,6 @@
     "body": {
       "type": "richtext"
     },
-    "user": {
-      "plugin": "users-permissions",
-      "model": "user"
-    },
     "image": {
       "model": "file",
       "via": "related",
@@ -34,6 +30,14 @@
     },
     "slug": {
       "type": "string"
+    },
+    "author": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "category": {
+      "via": "articles",
+      "model": "category"
     }
   }
 }

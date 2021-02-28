@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 
 function UserSignUp() {
   const [username, setUsername] = useState('');
@@ -34,10 +35,9 @@ function UserSignUp() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center">
+    <div className="flex flex-col justify-center">
       <div className="max-w-md w-full mx-auto">
-        <div className="text-center font-medium text-xl">Tankedeling</div>
-        <div className="text-3xl font-bold text-gray-900 mt-2 text-center">
+        <div className="text-3xl font-bold text-gray-900 text-center">
           Register your new user
         </div>
       </div>
@@ -131,9 +131,11 @@ function UserSignUp() {
               </label>
             </div>
             <div>
-              <a href="" className="font-medium text-sm text-blue-500">
-                Already have a user?
-              </a>
+              <Link href="/login">
+                <a className="font-medium text-sm text-blue-500">
+                  Already have a user?
+                </a>
+              </Link>
             </div>
           </div>
           <div>

@@ -1,64 +1,237 @@
-import React, { Component, useState, useEffect } from "react";
-import { Input, Menu, MenuItem } from "semantic-ui-react";
-import Link from "next/link";
-import Axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
 
 function NavBar() {
-
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt')
-    Axios.get('/users/me', { headers: { Authorization: `Bearer ${jwt}` }})
-      .then(res => { setUser(res.data)})
-      .catch(err => console.log(err))
-  }, [])
+    const jwt = localStorage.getItem('jwt');
+    axios
+      .get('/users/me', { headers: { Authorization: `Bearer ${jwt}` } })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const logout = () => {
-    localStorage.removeItem('jwt')
-    setUser(null)
-  }
-
+    localStorage.removeItem('jwt');
+    setUser(null);
+  };
   return (
-    // This example requires Tailwind CSS v2.0+ 
-    <nav className="bg-gray-200">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-              <span className="sr-only">Open main menu</span>
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <svg className="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex-shrink-0 flex items-center">
-              <Link href="/"><a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Tankedeling</a></Link>
-            </div>
-            <div className="hidden sm:block sm:ml-6">
-              <div className="flex space-x-4">
-                {user? (
-                  <>
-                  <Link href="/create-articles"><a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Create article</a></Link>
-                  <button onClick={logout}>Sign out</button>
-                  </>
+    <body className="antialiased bg-body text-body font-body">
+      <div className="">
+        <section>
+          <div className="container px-32 mx-auto">
+            <nav className="flex justify-between items-center py-6">
+              <Link href="/">
+                <a className="text-3xl font-semibold leading-none">
+                  <img
+                    className="h-10"
+                    src="https://i.ibb.co/PTTSygP/Tankedeling-logo.jpg"
+                    alt=""
+                    width="auto"
+                  />
+                </a>
+              </Link>
+              <div className="lg:hidden">
+                <button className="navbar-burger flex items-center py-2 px-3 text-blue-600 hover:text-blue-700 rounded border border-blue-200 hover:border-blue-300">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    viewbox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>Mobile menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <ul className="hidden lg:flex lg:items-center lg:w-auto lg:space-x-12">
+                <li>
+                  <a
+                    className="text-sm text-blueGray-400 hover:text-blueGray-500"
+                    href="#"
+                  >
+                    Product
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-sm text-blueGray-400 hover:text-blueGray-500"
+                    href="#"
+                  >
+                    Company
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-sm text-blueGray-400 hover:text-blueGray-500"
+                    href="#"
+                  >
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-sm text-blueGray-400 hover:text-blueGray-500"
+                    href="#"
+                  >
+                    Features
+                  </a>
+                </li>
+              </ul>
+              <div className="hidden lg:block">
+                {user ? (
+                  <div className="flex">
+                    <Link href="/profile">
+                      <a>
+                        <button className="flex text-sm rounded-full focus:ring-4 focus:ring-gray-800 focus:ring-opacity-50 mr-20">
+                          <img
+                            className="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                        </button>
+                      </a>
+                    </Link>
+                    <Link href="/create">
+                      <a className="mr-2 inline-block px-4 py-3 text-xs text-blue-600 hover:text-blue-700 font-semibold leading-none border border-blue-200 hover:border-blue-300 rounded">
+                        Create article
+                      </a>
+                    </Link>
+                    <button
+                      className="inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-600 hover:bg-blue-700 text-white rounded"
+                      onClick={logout}
+                    >
+                      Sign out
+                    </button>
+                  </div>
                 ) : (
                   <>
-                  <Link href="/signin"><a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Sign in</a></Link>
-                  <Link href="/signup"><a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Sign up</a></Link>
+                    <Link href="/login">
+                      <a className="mr-2 inline-block px-4 py-3 text-xs text-blue-600 hover:text-blue-700 font-semibold leading-none border border-blue-200 hover:border-blue-300 rounded">
+                        Log In
+                      </a>
+                    </Link>
+                    <Link href="/signup">
+                      <a className="inline-block px-4 py-3 text-xs font-semibold leading-none bg-blue-600 hover:bg-blue-700 text-white rounded">
+                        Sign Up
+                      </a>
+                    </Link>
                   </>
-                 )
-                }
+                )}
               </div>
-            </div>
+            </nav>
           </div>
-        </div>
+          <div className="hidden navbar-menu relative z-50">
+            <div className="navbar-backdrop fixed inset-0 bg-blueGray-800 opacity-25"></div>
+            <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+              <div className="flex items-center mb-8">
+                <a
+                  className="mr-auto text-3xl font-semibold leading-none"
+                  href="#"
+                >
+                  <img
+                    className="h-10"
+                    src="metis-assets/logos/metis/metis.svg"
+                    alt=""
+                    width="auto"
+                  />
+                </a>
+                <button className="navbar-close">
+                  <svg
+                    className="h-6 w-6 text-blueGray-400 cursor-pointer hover:text-blueGray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewbox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div>
+                <ul>
+                  <li className="mb-1">
+                    <a
+                      className="block p-4 text-sm text-blueGray-500 hover:bg-blue-50 hover:text-blue-600"
+                      href="#"
+                    >
+                      Product
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a
+                      className="block p-4 text-sm text-blueGray-500 hover:bg-blue-50 hover:text-blue-600"
+                      href="#"
+                    >
+                      Company
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a
+                      className="block p-4 text-sm text-blueGray-500 hover:bg-blue-50 hover:text-blue-600"
+                      href="#"
+                    >
+                      About Us
+                    </a>
+                  </li>
+                  <li className="mb-1">
+                    <a
+                      className="block p-4 text-sm text-blueGray-500 hover:bg-blue-50 hover:text-blue-600"
+                      href="#"
+                    >
+                      Features
+                    </a>
+                  </li>
+                </ul>
+                <div className="mt-4 pt-6 border-t border-blueGray-100">
+                  <a
+                    className="block px-4 py-3 mb-3 text-xs text-center font-semibold leading-none bg-blue-600 hover:bg-blue-700 text-white rounded"
+                    href="#"
+                  >
+                    Sign Up
+                  </a>
+                  <a
+                    className="block px-4 py-3 mb-2 text-xs text-center text-blue-600 hover:text-blue-700 font-semibold leading-none border border-blue-200 hover:border-blue-300 rounded"
+                    href="#"
+                  >
+                    Log In
+                  </a>
+                </div>
+              </div>
+              <div className="mt-auto">
+                <p className="my-4 text-xs text-blueGray-400">
+                  <span>Get in Touch</span>
+                  <a
+                    className="text-blue-600 hover:text-blue-600 underline"
+                    href="#"
+                  >
+                    info@example.com
+                  </a>
+                </p>
+                <a className="inline-block px-1" href="#">
+                  <img src="metis-assets/icons/facebook-blue.svg" alt="" />
+                </a>
+                <a className="inline-block px-1" href="#">
+                  <img src="metis-assets/icons/twitter-blue.svg" alt="" />
+                </a>
+                <a className="inline-block px-1" href="#">
+                  <img src="metis-assets/icons/instagram-blue.svg" alt="" />
+                </a>
+              </div>
+            </nav>
+          </div>
+        </section>
       </div>
-    </nav>
+    </body>
   );
 }
+
 export default NavBar;

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories",
+  "info": {
+    "name": "Category",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "CategoryName": {
+      "type": "string"
+    },
+    "CategoryDescription": {
+      "type": "richtext"
+    },
+    "Followers": {
+      "type": "integer"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "articles": {
+      "collection": "article",
+      "via": "category"
+    }
+  }
+}

@@ -27,8 +27,9 @@ function UserSignIn() {
       // Set token in local storage
       localStorage.setItem('jwt', res.data.jwt);
 
-      // redicrect back
-      router.back();
+      // redirect back
+      // router.back();
+      window.location.href = '/';
     } catch (err) {
       console.log(err);
     }

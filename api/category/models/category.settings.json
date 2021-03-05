@@ -8,7 +8,7 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "CategoryName": {
@@ -24,8 +24,8 @@
       "type": "date"
     },
     "articles": {
-      "collection": "article",
-      "via": "category"
+      "via": "category",
+      "collection": "article"
     }
   }
 }

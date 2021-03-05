@@ -61,6 +61,10 @@
     },
     "description": {
       "type": "text"
+    },
+    "articles": {
+      "via": "author",
+      "collection": "article"
     }
   }
 }

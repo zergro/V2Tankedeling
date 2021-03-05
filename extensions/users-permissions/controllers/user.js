@@ -20,8 +20,22 @@ module.exports = {
     }
 
     // // Find articles posted by this user
-    const articles = await strapi.services.article.find({ user: user.id });
+    const articles = await strapi.services.article.find({ author: user.id });
 
     ctx.body = { ...user, articles };
+  },
+  async me(ctx) {
+    let user = ctx.state.user;
+
+    if (!user) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: 'No authorization header was found' }] },
+      ]);
+    }
+
+    user = sanitizeUser(user);
+    user.articles = await strapi.services.article.find({ author: user.id });
+
+    ctx.body = user;
   },
 };

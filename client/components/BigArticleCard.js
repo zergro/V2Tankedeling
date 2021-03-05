@@ -5,11 +5,8 @@ function BigArticleCard({
 }) {
   const stringDate = JSON.stringify(published_at);
   const sepDate = stringDate.split('T');
-  console.log(sepDate[0]);
   const newDate = sepDate[0].split('-');
-  console.log('The day is ' + newDate[2]);
   const day = newDate[2];
-  console.log('The month is ' + newDate[1]);
   const month = newDate[1];
 
   function caseInSwitch(val) {
@@ -59,7 +56,6 @@ function BigArticleCard({
   }
 
   const corrMonth = caseInSwitch(month);
-  console.log(corrMonth);
 
   return (
     <>

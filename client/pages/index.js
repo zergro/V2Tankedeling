@@ -20,16 +20,18 @@ export default function Home() {
 
   const [bigPost, setBigPost] = useState(null);
   const [smallPosts, setSmallPosts] = useState(null);
+  console.log(bigPost);
+  console.log(smallPosts);
 
   useEffect(() => {
     axios
-      .get('http://localhost:1337/articles?_sort=created_at:ASC&_limit=1')
+      .get('http://localhost:1337/articles?_sort=created_at:DESC&_limit=1')
       .then((res) => setBigPost(res.data));
   }, []);
   useEffect(() => {
     axios
       .get(
-        'http://localhost:1337/articles?_sort=created_at:ASC&_start=1&_limit=4'
+        'http://localhost:1337/articles?_sort=created_at:DESC&_start=1&_limit=4'
       )
       .then((res) => setSmallPosts(res.data));
   }, []);
@@ -203,8 +205,3 @@ export default function Home() {
     </div>
   );
 }
-// {posts?.map((p) => (
-//   <div className="" key={p.id}>
-//     <PostCard post={p} />
-//   </div>
-// ))}

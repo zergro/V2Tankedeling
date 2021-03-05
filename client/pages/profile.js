@@ -13,6 +13,7 @@ export default function Home() {
     axios
       .get('/users/me', { headers: { Authorization: `Bearer ${jwt}` } })
       .then((res) => {
+        console.log(res.data);
         setUser(res.data);
       })
       .catch((err) => console.log(err));
@@ -21,11 +22,17 @@ export default function Home() {
   return (
     <div className="container mt-8">
       <div className="mx-52">
-        {/* {posts?.map((p) => (
-          <div className="" key={p.id}>
-            <PostCard post={p} />
-          </div>
-        ))} */}
+        {user ? (
+          <>
+            <div>Welcome {user.username}</div>
+            <div>You have written {user.articles.length} articles</div>
+            <div>The email registered to you is {user.email}</div>
+          </>
+        ) : (
+          <>
+            <div>You're recieving data</div>
+          </>
+        )}
       </div>
     </div>
   );

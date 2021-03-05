@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.4",
+    "moment": "^2.29.1",
     "next": "10.0.6",
     "postcss": "^8.2.6",
     "quill-image-drop-module": "^1.0.3",

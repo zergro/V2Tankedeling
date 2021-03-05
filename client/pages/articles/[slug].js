@@ -1,77 +1,8 @@
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
-const Post = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const [post, setPost] = useState(null);
-
-  useEffect(() => {
-    if (!slug) return;
-    axios
-      .get(`http://localhost:1337/articles/${slug}`)
-      .then((res) => setPost(res.data));
-  }, [slug]);
-  const stringDate = post.published_at;
-  console.log(stringDate);
-  const sepDate = stringDate.split('T');
-  console.log(sepDate[0]);
-  const newDate = sepDate[0].split('-');
-  console.log('The day is ' + newDate[2]);
-  const day = newDate[2];
-  console.log('The month is ' + newDate[1]);
-  const month = newDate[1];
-
-  function caseInSwitch(val) {
-    var valMonth = '';
-    // Only change code below this line
-    switch (val) {
-      case '01':
-        valMonth = 'Jan';
-        break;
-      case '02':
-        valMonth = 'Feb';
-        break;
-      case '03':
-        valMonth = 'Mar';
-        break;
-      case '04':
-        valMonth = 'Apr';
-        break;
-      case '05':
-        valMonth = 'Mai';
-        break;
-      case '06':
-        valMonth = 'Jun';
-        break;
-      case '07':
-        valMonth = 'Jul';
-        break;
-      case '08':
-        valMonth = 'Aug';
-        break;
-      case '09':
-        valMonth = 'Sep';
-        break;
-      case '10':
-        valMonth = 'Oct';
-        break;
-      case '11':
-        valMonth = 'Nov';
-        break;
-      case '12':
-        valMonth = 'Dec';
-        break;
-    }
-
-    // Only change code above this line
-    return valMonth;
-  }
-
-  const corrMonth = caseInSwitch(month);
-  console.log(corrMonth);
+const Post = ({ post }) => {
+  const date = moment(post.published_at).locale('nb').format('ll');
 
   return (
     <>
@@ -101,7 +32,7 @@ const Post = () => {
                   </div>
                   <div className="w-1/3 text-center">
                     <p className="text-blueGray-500 mb-1">
-                      {day}. {corrMonth} &#8226; {post.category.CategoryName}
+                      {date} &#8226; {post.category.CategoryName}
                     </p>
                     <p className="text-xs text-blue-600 font-semibold">
                       6 min read
@@ -134,5 +65,18 @@ const Post = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  const slug = context.req.url.split('/articles/')[1]; // /articles/new-article
+
+  try {
+    const { data } = await axios.get(`http://localhost:1337/articles/${slug}`);
+
+    return { props: { post: data } };
+  } catch (err) {
+    console.log(err);
+    return { props: {} };
+  }
+}
 
 export default Post;

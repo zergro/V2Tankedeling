@@ -32,14 +32,14 @@ module.exports = {
       entity = await strapi.services.article.create(
         {
           ...data,
-          user: ctx.state.user.id,
+          author: ctx.state.user.id,
         },
         { files }
       );
     } else {
       entity = await strapi.services.article.create({
         ...ctx.request.body,
-        user: ctx.state.user.id,
+        author: ctx.state.user.id,
       });
     }
     return sanitizeEntity(entity, { model: strapi.models.article });

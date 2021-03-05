@@ -33,11 +33,12 @@
     },
     "author": {
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "articles"
     },
     "category": {
-      "via": "articles",
-      "model": "category"
+      "model": "category",
+      "via": "articles"
     }
   }
 }

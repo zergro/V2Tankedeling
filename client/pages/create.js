@@ -10,16 +10,10 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
 
 const modules = {
   toolbar: [
-    [{ header: '1' }, { header: '2' }, { font: [] }],
-    [{ size: [] }],
+    [{ header: '1' }, { header: '2' }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [
-      { list: 'ordered' },
-      { list: 'bullet' },
-      { indent: '-1' },
-      { indent: '+1' },
-    ],
     ['link', 'image', 'video'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
     ['clean'],
   ],
   clipboard: {
@@ -49,6 +43,16 @@ function CreateArticles() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
+
+  const strAmountOfWord = JSON.stringify(body);
+
+  function WordCount(str) {
+    str = str.replace(/(^\s*)|(\s*$)/gi, ''); //exclude  start and end white-space
+    return str.split(' ').filter(function (n) {
+      return n != '';
+    }).length;
+  }
+  const wordCount = WordCount(strAmountOfWord) - 1;
 
   const router = useRouter();
 
@@ -85,7 +89,7 @@ function CreateArticles() {
   return (
     <>
       <div className="justify-center mt-20">
-        <div className="mx-72">
+        <div className="mx-96">
           <form id="form" className="px-8 pt-6 pb-8 mb-4" onSubmit={submitForm}>
             <div className="mb-4">
               <input
@@ -97,15 +101,14 @@ function CreateArticles() {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <input
                 className="w-full border-none rounded appearance-none focus:outline-none focus:shadow-outline"
                 name="image"
                 id="imageInput"
                 type="file"
               />
-            </div>
-
+            </div> */}
             <div className="mb-4">
               <QuillNoSSRWrapper
                 modules={modules}
@@ -113,9 +116,10 @@ function CreateArticles() {
                 value={body}
                 onChange={setBody}
                 theme="snow"
+                placeholder="Write your story here"
               />
             </div>
-
+            {wordCount} words.
             <div className="flex items-center justify-between">
               <button
                 id="submit"

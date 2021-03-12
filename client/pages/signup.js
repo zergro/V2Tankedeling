@@ -17,17 +17,15 @@ function UserSignUp() {
   checkPassword.current = watch('password', '');
 
   const onSubmit = handleSubmit(async (e) => {
-    console.log(e);
-
     try {
-      const newUser = await axios
-        .post('http://localhost:1337/auth/local/register', {
+      const newUser = await axios.post(
+        'http://localhost:1337/auth/local/register',
+        {
           username,
           email,
           password,
-        })
-        .then(console.log('We are sending a request'));
-
+        }
+      );
       router.back();
     } catch (err) {
       console.log(err);

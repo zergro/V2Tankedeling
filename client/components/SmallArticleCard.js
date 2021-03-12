@@ -1,61 +1,10 @@
 import Link from 'next/link';
+import moment from 'moment';
 
 function SmallArticleCard({
-  post: { title, image, slug, category, author, published_at },
+  post: { title, image, slug, author, published_at },
 }) {
-  const stringDate = JSON.stringify(published_at);
-  const sepDate = stringDate.split('T');
-  const newDate = sepDate[0].split('-');
-  const day = newDate[2];
-  const month = newDate[1];
-
-  function caseInSwitch(val) {
-    var valMonth = '';
-    // Only change code below this line
-    switch (val) {
-      case '01':
-        valMonth = 'Jan';
-        break;
-      case '02':
-        valMonth = 'Feb';
-        break;
-      case '03':
-        valMonth = 'Mar';
-        break;
-      case '04':
-        valMonth = 'Apr';
-        break;
-      case '05':
-        valMonth = 'Mai';
-        break;
-      case '06':
-        valMonth = 'Jun';
-        break;
-      case '07':
-        valMonth = 'Jul';
-        break;
-      case '08':
-        valMonth = 'Aug';
-        break;
-      case '09':
-        valMonth = 'Sep';
-        break;
-      case '10':
-        valMonth = 'Oct';
-        break;
-      case '11':
-        valMonth = 'Nov';
-        break;
-      case '12':
-        valMonth = 'Dec';
-        break;
-    }
-
-    // Only change code above this line
-    return valMonth;
-  }
-
-  const corrMonth = caseInSwitch(month);
+  const date = moment(published_at).locale('nb').format('ll');
 
   return (
     <>
@@ -64,15 +13,14 @@ function SmallArticleCard({
           <figure className="flex">
             <div className="text-left">
               <blockquote>
-                <p className="font-semibold">{title.substring(0, 70)}...</p>
+                <p className="font-semibold">
+                  {title.substring(0, 40)}
+                  {title.length > 40 && <p>...</p>}
+                </p>
               </blockquote>
               <figcaption className="font-thin">
-                <div className="text-cyan 600">
-                  {author.username} #{category.CategoryName}
-                </div>
-                <div className="text-cyan 600">
-                  {day}. {corrMonth} &#8226; 3 min read
-                </div>
+                <div className="text-cyan 600">{author.username}</div>
+                <div className="text-cyan 600">{date} &#8226; 3 min read</div>
               </figcaption>
             </div>
             <img

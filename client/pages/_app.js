@@ -1,10 +1,11 @@
-import "tailwindcss/tailwind.css";
-import '../styles/globals.css'
-import 'react-quill/dist/quill.snow.css'; 
-import Head from 'next/head'
+import 'tailwindcss/tailwind.css';
+import '../styles/globals.css';
+import '../styles/App.css';
+import 'react-quill/dist/quill.snow.css';
+import Head from 'next/head';
 
-import NavBar from "../components/NavBar";
-import axios from "axios";
+import NavBar from '../components/NavBar';
+import axios from 'axios';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 

@@ -20,8 +20,6 @@ export default function Home() {
 
   const [bigPost, setBigPost] = useState(null);
   const [smallPosts, setSmallPosts] = useState(null);
-  console.log(bigPost);
-  console.log(smallPosts);
 
   useEffect(() => {
     axios
@@ -60,7 +58,7 @@ export default function Home() {
           <div className="w-1/3">
             <div className="">
               <div>Newest members</div>
-              <div className="flex space-x-6 mt-2">
+              <div className="flex space-x-6">
                 <figure className="">
                   <img
                     className="w-16 h-16 rounded-full object-cover"
@@ -136,39 +134,17 @@ export default function Home() {
                   </figcaption>
                 </figure>
               </div>
-              <div>See all our authors</div>
+              {/* <div>See all our authors</div> */}
             </div>
             <div className="mt-10">
-              <div className="mb-5">Topics to read about</div>
-              <ul className="space-y-4">
-                <div className="flex justify-between">
-                  <li>#Trump</li>
-                  <button
-                    type="button"
-                    className="focus:outline-none text-white text-sm py-1 px-3 rounded-md bg-gray-700 hover:bg-gray-900 hover:shadow-lg"
-                  >
-                    Check out
-                  </button>
+              <div className="">
+                <div>Quote of today</div>
+                <div className="mt-5">
+                  “My life amounts to no more than one drop in a limitless
+                  ocean. Yet what is any ocean, but a multitude of drops?”
                 </div>
-                <div className="flex justify-between">
-                  <li>#GlobalWarming</li>
-                  <button
-                    type="button"
-                    className="focus:outline-none text-white text-sm py-1 px-3 rounded-md bg-gray-700 hover:bg-gray-900 hover:shadow-lg"
-                  >
-                    Check out
-                  </button>
-                </div>
-                <div className="flex justify-between">
-                  <li>#Technology</li>
-                  <button
-                    type="button"
-                    className="focus:outline-none text-white text-sm py-1 px-3 rounded-md bg-gray-700 hover:bg-gray-900 hover:shadow-lg"
-                  >
-                    Check out
-                  </button>
-                </div>
-              </ul>
+                <div>― David Mitchell, Cloud Atlas</div>
+              </div>
             </div>
           </div>
         </div>

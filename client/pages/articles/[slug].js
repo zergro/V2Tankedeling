@@ -31,9 +31,7 @@ const Post = ({ post }) => {
                     </div>
                   </div>
                   <div className="w-1/3 text-center">
-                    <p className="text-blueGray-500 mb-1">
-                      {date} &#8226; {post.category.CategoryName}
-                    </p>
+                    <p className="text-blueGray-500 mb-1">{date} &#8226; </p>
                     <p className="text-xs text-blue-600 font-semibold">
                       6 min read
                     </p>
@@ -53,10 +51,11 @@ const Post = ({ post }) => {
                     src={`${process.env.NEXT_PUBLIC_API_URL}${post.image?.url}`}
                   />
                 )}
-                <div className="text-center font-thin">
-                  Text that explains photo and source.
-                </div>
-                <div dangerouslySetInnerHTML={{ __html: post.body }} />
+
+                <article
+                  className="prose prose-xl"
+                  dangerouslySetInnerHTML={{ __html: post.body }}
+                />
               </div>
             )}
           </div>

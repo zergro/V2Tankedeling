@@ -12,17 +12,11 @@ function UserSignIn() {
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (e) => {
-    console.log(e);
-    console.log(identifier);
-    console.log(password);
-
     try {
-      const res = await axios
-        .post('http://localhost:1337/auth/local', {
-          identifier,
-          password,
-        })
-        .then(console.log('We are sending a request'));
+      const res = await axios.post('http://localhost:1337/auth/local', {
+        identifier,
+        password,
+      });
 
       // Set token in local storage
       localStorage.setItem('jwt', res.data.jwt);
